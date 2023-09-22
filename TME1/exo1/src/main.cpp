@@ -20,7 +20,7 @@ int main () {
 	list.push_front(abc);
 	list.push_front(abc);
 
-	std::cout << "Liste : " << list << std::endl;
+	std::cout << "Liste : " << list.tete->data << std::endl;
 	std::cout << "Taille : " << list.size() << std::endl;
 
 	// Affiche à l'envers

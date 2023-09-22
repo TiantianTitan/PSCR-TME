@@ -1,3 +1,8 @@
+#include "List.h"
+#include <iostream>
+#include <cstddef>
+#include <cstring>
+
 
 namespace pr {
 
@@ -7,17 +12,18 @@ Chainon::Chainon (const std::string & data, Chainon * next):data(data),next(next
 size_t Chainon::length() {
 	size_t len = 1;
 	if (next != nullptr) {
-		len += next->length();
+		len ++;
+		next = next->next;
 	}
-	return length();
+	return len;
 }
 
-void Chainon::print (std::ostream & os) {
+void Chainon::print (std::ostream & os) const {
 	os << data ;
 	if (next != nullptr) {
 		os << ", ";
+		next->print(os);
 	}
-	next->print(os);
 }
 
 // ******************  List
@@ -45,7 +51,7 @@ void List::push_front (const std::string& val) {
 	tete = new Chainon(val,tete);
 }
 
-bool empty() {
+bool List::empty() {
 	return tete == nullptr;
 }
 
@@ -58,7 +64,6 @@ size_t List::size() const {
 }
 
 } // namespace pr
-
 std::ostream & operator<< (std::ostream & os, const pr::List & vec)
 {
 	os << "[";
