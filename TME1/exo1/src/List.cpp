@@ -1,4 +1,4 @@
-#include "List.h"
+#include "List.h" 		// Faute: Associer les bibliothèques.h et .cpp
 #include <iostream>
 #include <cstddef>
 #include <cstring>
@@ -10,6 +10,7 @@ namespace pr {
 Chainon::Chainon (const std::string & data, Chainon * next):data(data),next(next) {};
 
 size_t Chainon::length() {
+	// Faute: pour calculer correcte la longueur de cette chaine, le code corrigé est ci-dessous:
 	size_t len = 1;
 	if (next != nullptr) {
 		len ++;
@@ -18,11 +19,11 @@ size_t Chainon::length() {
 	return len;
 }
 
-void Chainon::print (std::ostream & os) const {
+void Chainon::print (std::ostream & os) const { // Faute: accorder const 
 	os << data ;
 	if (next != nullptr) {
 		os << ", ";
-		next->print(os);
+		next->print(os); // Faute: récursive sous la condition != nullptr
 	}
 }
 
@@ -51,7 +52,7 @@ void List::push_front (const std::string& val) {
 	tete = new Chainon(val,tete);
 }
 
-bool List::empty() {
+bool List::empty() { // Faute: pour invoquer les méthodes d'une classe, il faut utiliser ::
 	return tete == nullptr;
 }
 

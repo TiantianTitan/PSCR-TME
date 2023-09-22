@@ -182,7 +182,7 @@ CPPFLAGS =
 CSCOPE = cscope
 CTAGS = ctags
 CXX = g++
-CXXDEPMODE = depmode=none
+CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -std=c++1y 
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"PR\" -DPACKAGE_TARNAME=\"pr\" -DPACKAGE_VERSION=\"0.0.1\" -DPACKAGE_STRING=\"PR\ 0.0.1\" -DPACKAGE_BUGREPORT=\"bugs@bugs.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"pr\" -DVERSION=\"0.0.1\"
@@ -221,7 +221,7 @@ abs_srcdir = /home/ubuntu23/Bureau/PSCR-TME/TME1/exo1/src
 abs_top_builddir = /home/ubuntu23/Bureau/PSCR-TME/TME1/exo1
 abs_top_srcdir = /home/ubuntu23/Bureau/PSCR-TME/TME1/exo1
 ac_ct_CC = gcc
-ac_ct_CXX = 
+ac_ct_CXX = g++
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -326,20 +326,20 @@ $(am__depfiles_remade):
 am--depfiles: $(am__depfiles_remade)
 
 .cpp.o:
-#	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
-#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
-#	$(am__mv) $$depbase.Tpo $$depbase.Po
-	$(AM_V_CXX)source='$<' object='$@' libtool=no \
-	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ $<
+	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+	$(am__mv) $$depbase.Tpo $$depbase.Po
+#	$(AM_V_CXX)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ $<
 
 .cpp.obj:
-#	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
-#	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
-#	$(am__mv) $$depbase.Tpo $$depbase.Po
-	$(AM_V_CXX)source='$<' object='$@' libtool=no \
-	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
-	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+	$(am__mv) $$depbase.Tpo $$depbase.Po
+#	$(AM_V_CXX)source='$<' object='$@' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

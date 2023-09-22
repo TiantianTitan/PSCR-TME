@@ -35,7 +35,7 @@ public:
 
 	void push_back (const std::string& val) ;
 
-	void push_front (const std::string& val) ;
+	void push_front (const std::string& val) ; //Fault: On ne peut pas implémenter dans la bibliothèque
 
 	bool empty() ;
 

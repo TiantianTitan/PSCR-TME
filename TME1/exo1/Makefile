@@ -150,7 +150,8 @@ am__define_uniq_tagged_files = \
     if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
   done | $(am__uniquify_input)`
 DIST_SUBDIRS = $(SUBDIRS)
-am__DIST_COMMON = $(srcdir)/Makefile.in compile install-sh missing
+am__DIST_COMMON = $(srcdir)/Makefile.in compile depcomp install-sh \
+	missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -209,7 +210,7 @@ CPPFLAGS =
 CSCOPE = cscope
 CTAGS = ctags
 CXX = g++
-CXXDEPMODE = depmode=none
+CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -std=c++1y 
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"PR\" -DPACKAGE_TARNAME=\"pr\" -DPACKAGE_VERSION=\"0.0.1\" -DPACKAGE_STRING=\"PR\ 0.0.1\" -DPACKAGE_BUGREPORT=\"bugs@bugs.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"pr\" -DVERSION=\"0.0.1\"
@@ -248,7 +249,7 @@ abs_srcdir = /home/ubuntu23/Bureau/PSCR-TME/TME1/exo1
 abs_top_builddir = /home/ubuntu23/Bureau/PSCR-TME/TME1/exo1
 abs_top_srcdir = /home/ubuntu23/Bureau/PSCR-TME/TME1/exo1
 ac_ct_CC = gcc
-ac_ct_CXX = 
+ac_ct_CXX = g++
 am__include = include
 am__leading_dot = .
 am__quote = 
