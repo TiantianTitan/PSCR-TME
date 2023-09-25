@@ -53,9 +53,10 @@ int main () {
 	std::cout << "*********************************************" << std::endl;
 
 	// Question 5 Découverte du debugger
+	std::cout << "Question 5" << std::endl;
 	for (size_t i=10; i != 0 ; i--) { // dans ce cas, i vaut avoir ce type de uint, lorsqu'il atteint 0 et i--, ça vaut être un entier positif et hyper grand
 		if (tab[i] - tab[i-1] != 1) {
-		std::cout << "probleme !";
+		std::cout << "probleme !" << std::endl;
 		}
 	}	
 	//Question 6
@@ -74,6 +75,7 @@ std::cout << "**************Afficher et Tester****************" << std::endl;
 
 	std::cout << "Liste : " << list.tete->data << std::endl; // Faute: on peut pas envoyer ce genre d'élément tel que List, on doit accéder à cette structure pour récupérer le data qu'on a besoin
 	std::cout << "Taille : " << list.size() << std::endl;
+	
 	// Affiche à l'envers
 
 	std::cout << "***********Affiche à l'envers**************" << std::endl;
@@ -93,9 +95,17 @@ std::cout << "**************Afficher et Tester****************" << std::endl;
 	char* copy = newcopy(str);
 	std::cout << "copy: " << copy << "  , length de copy: " << length(copy) << std::endl;
 	
+	// Question 10 Implanter la classe String conformément aux instructions du TD 1.
+	
+
+
+
+
+
 	// liberer les char de la chaine
 	for (char *cp = str ; *cp ; cp++) {
-		if(cp != NULL) delete []cp; // Faute: pour delete il faut rajouter les crochets juste devant la variable
+		// if(cp != null) ...
+		if(cp == NULL) delete []cp; // Faute: Si cp est vide, c'est la correction
 	}
 	// et la chaine elle meme
 	if(str!= NULL) delete []str; // Faute: pour delete il faut rajouter les crochets juste devant la variable
