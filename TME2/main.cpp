@@ -2,6 +2,7 @@
 #include <fstream>
 #include <regex>
 #include <chrono>
+#include "HashMap.hpp"
 
 // Q1 : au début,  il y a 566193 mots   runtime: 1s
 
@@ -13,10 +14,12 @@
 
 // Q4: O(n^2)
 
+using namespace std;
+using namespace std::chrono;
 
 int main () {
-	using namespace std;
-	using namespace std::chrono;
+
+
 
 	ifstream input = ifstream("./WarAndPeace.txt");
 
@@ -30,9 +33,11 @@ int main () {
 	regex re( R"([^a-zA-Z])");
 
 	//vecteur
-	vector<pair<string,int>> vec;
-	//map
-	map<string,size_t> map;
+	//vector<pair<string,int>> vec;
+	//Hashmap
+	HashMap<string,int> *map = new HashMap<string,int>(100000);
+
+
 
 	while (input >> word) {
 		// élimine la ponctuation et les caractères spéciaux
@@ -42,15 +47,18 @@ int main () {
 			
 		
 		bool connu = false;
-	
+
 		
-		for( pair<string,int> & motCount: vec){
-			if(motCount.first == word){
-				connu = true;
-				(motCount.second)++;
-				break;
-			}
+		if(map->isMember(word)){
+			connu = true;
 		}
+		// for( pair<string,int> & motCount: vec){
+		// 	if(motCount.first == word){
+		// 		connu = true;
+		// 		(motCount.second)++;
+		// 		break;
+		// 	}
+		// }
 
 
 
@@ -66,16 +74,25 @@ int main () {
 			pair<string,size_t> ele;
 			ele.first = word;
 			ele.second = 1;
-			vec.push_back(ele);
+			map->push(ele);
 		}
 	
 	}
 	input.close();
 
-	for(pair<string,int> & motCount : vec){
-		if(motCount.first == "war" || motCount.first == "peace" || motCount.first == "toto")
-			cout << "Word:  " << motCount.first << "Count:  " << motCount.second << endl;
-	}
+	
+
+	// besoin de parcourir le map 
+		if(word == "war" || word == "peace" || word == "toto"){
+			cout << "Word:  " << word << "Count:  " << map->getValue(word) << endl;
+		}
+	
+
+
+	// for(pair<string,int> & motCount : vec){
+	// 	if(motCount.first == "war" || motCount.first == "peace" || motCount.first == "toto")
+	// 		cout << "Word:  " << motCount.first << "Count:  " << motCount.second << endl;
+	// }
 
 	cout << "Word:  " << "toto" << "Count:  " << "0" << endl;
 
