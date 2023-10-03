@@ -1,3 +1,6 @@
+Numéro d'étudiant: 21305395
+Email: haotian.xue@etu.sorbonne-universite.fr
+
 # PSCR-TME
 
 Provided lab files for PSCR MU4IN400 course.
