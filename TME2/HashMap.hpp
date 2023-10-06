@@ -1,107 +1,69 @@
-#include <cstdio>
-#include <string>
 #include <iostream>
-#include <regex>
-#include <chrono>
-using namespace std;
+#include <vector>
+#include <forward_list>
+#include <functional>
+
+template <typename K, typename V>
+class HashMap {
+public:
+    struct Entry {
+        const K key;
+        V value;
+        Entry(const K& k, const V& v) : key(k), value(v) {}
+    };
+
+private:
+    std::vector<std::forward_list<Entry>> buckets;
+
+public:
+    HashMap(size_t size) : buckets(size) {}
+
+    V* get(const K& key) {
+        size_t h = std::hash<K>()(key);
+        size_t bucketIndex = h % buckets.size();
+
+        for (Entry& e : buckets[bucketIndex]) {
+            if (e.key == key) {
+                return &(e.value);
+            }
+        }
+
+        return nullptr;
+    }
+
+    void set(const K& key, const V& value) {
+        size_t h = std::hash<K>()(key);
+        size_t bucketIndex = h % buckets.size();
+
+        for (Entry& e : buckets[bucketIndex]) {
+            if (e.key == key) {
+                e.value = value;
+            }
+        }
+    }
 
 
+    bool put(const K& key, const V& value) {
+        size_t h = std::hash<K>()(key);
+        size_t bucketIndex = h % buckets.size();
 
+        for (Entry& e : buckets[bucketIndex]) {
+            if (e.key == key) {
+                e.value = value;
+                return true; // La clé existait déjà et a été mise à jour
+            }
+        }
 
+        Entry newEntry(key, value);
+        buckets[bucketIndex].emplace_front(newEntry);
+        return false; // La clé n'existait pas et a été insérée
+    }
 
-// struct Entry
-// {
-//     const string key;
-//     size_t value;
-// };
-
-template<typename K, typename V>
-
-
-class HashMap
-{
-
-    private:
-    
-        /* data */
-        size_t size;
-        size_t n;
-        vector<pair<K,V>>  *tab ;
-    public:
-        HashMap(size_t size);
-        ~HashMap();
-        void push(pair<K,V> entry);
-        size_t hashcode(K key);
-        bool isMember(K key);
-        V getValue(K key);
-        
+    size_t size() const {
+        size_t count = 0;
+        for (const std::forward_list<Entry>& bucket : buckets) {
+            count += std::distance(bucket.begin(), bucket.end());
+        }
+        return count;
+    }
 };
-
-template<typename K, typename V>
-HashMap<K,V>::HashMap(size_t size)
-{   
-    this->size = size;
-    this->tab = new vector<pair<K,V>>[size]();
-}
-
-template<typename K, typename V>
-HashMap<K,V>::~HashMap()
-{
-    delete[] this->tab;
-}
-template<typename K, typename V>
-void HashMap<K,V>::push(pair<K,V> entry){
-    size_t code = hashcode(entry.first);
-    code %= size; 
-    entry.second++;
-    tab[code].push_back(entry);
-    
-}
-
-template<typename K, typename V>
-size_t HashMap<K,V>::hashcode(K key){
-    std::hash<std::string> hash;
-    size_t hashcode = hash(key);
-    return hashcode;
-}
-
-template<typename K, typename V>
-bool HashMap<K,V>::isMember(K key){
-    size_t code = hashcode(key);
-    code %= size;
-    for (const std::pair<K, V>& entry : tab[code]) {
-        if (entry.first == key) {
-            return true;
-        }
-    }
-
-    return false; 
-}
-
-
-template<typename K, typename V>
-V HashMap<K,V>::getValue(K key){
-    size_t code = hashcode(key);
-    code %= size;
-    for (const std::pair<K, V>& entry : tab[code]) {
-        if (entry.first == key) {
-            return entry.second;
-        }
-    }
-
-    return 0; 
-}
-    
-
-
-
-
-
-
-
-
-
-
-
-
-

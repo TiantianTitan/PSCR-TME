@@ -4,6 +4,7 @@
 #include <chrono>
 #include "HashMap.hpp"
 
+
 // Q1 : au début,  il y a 566193 mots   runtime: 1s
 
 // Q2 : il y a 20333 mots diférent   runtime: 13s
@@ -14,12 +15,18 @@
 
 // Q4: O(n^2)
 
-using namespace std;
-using namespace std::chrono;
+template<typename K, typename V>
+struct Entry{
+	const K key;
+	V value;
+	Entry(const K& k, const V& v) : key(k), value(v) {};
+};
 
 int main () {
+	using namespace std;
+	using namespace std::chrono;
 
-
+	cout << "test1" << endl;
 
 	ifstream input = ifstream("./WarAndPeace.txt");
 
@@ -34,24 +41,20 @@ int main () {
 
 	//vecteur
 	//vector<pair<string,int>> vec;
-	//Hashmap
-	HashMap<string,int> *map = new HashMap<string,int>(100000);
-
-
+	//map
+	size_t size = 1000;
+	
+	HashMap<string,int> map (size);
 
 	while (input >> word) {
 		// élimine la ponctuation et les caractères spéciaux
 		word = regex_replace ( word, re, "");
 		// passe en lowercase
 		transform(word.begin(),word.end(),word.begin(),::tolower);
-			
-		
+
 		bool connu = false;
 
-		
-		if(map->isMember(word)){
-			connu = true;
-		}
+
 		// for( pair<string,int> & motCount: vec){
 		// 	if(motCount.first == word){
 		// 		connu = true;
@@ -61,42 +64,55 @@ int main () {
 		// }
 
 
+				
+        if (map.get(word) != nullptr) {
+            int setValue = *(map.get(word)) + 1;
+            map.set(word, setValue);
+        } else {
+            map.put(word, 1);
+        }
 
 
-		// for(const auto & elt: conteneur)
+		// if(!connu){
+		// 	// word est maintenant "tout propre"
+		// 	if (nombre_lu % 100 == 0)
+		// 	// on affiche un mot "propre" sur 100
+		// 	// cout << nombre_lu << ": "<< word << endl;
+		// 	nombre_lu++;
+		// 	pair<string,size_t> ele;
+		// 	ele.first = word;
+		// 	ele.second = 1;
+		// 	vec.push_back(ele);
+		// }
 
-		if(!connu){
-			// word est maintenant "tout propre"
-			if (nombre_lu % 100 == 0)
-			// on affiche un mot "propre" sur 100
-			// cout << nombre_lu << ": "<< word << endl;
-			nombre_lu++;
-			pair<string,size_t> ele;
-			ele.first = word;
-			ele.second = 1;
-			map->push(ele);
-		}
-	
 	}
 	input.close();
-
-	
-
-	// besoin de parcourir le map 
-		if(word == "war" || word == "peace" || word == "toto"){
-			cout << "Word:  " << word << "Count:  " << map->getValue(word) << endl;
-		}
-	
-
 
 	// for(pair<string,int> & motCount : vec){
 	// 	if(motCount.first == "war" || motCount.first == "peace" || motCount.first == "toto")
 	// 		cout << "Word:  " << motCount.first << "Count:  " << motCount.second << endl;
 	// }
 
-	cout << "Word:  " << "toto" << "Count:  " << "0" << endl;
+	// cout << "Word:  " << "toto" << "Count:  " << "0" << endl;
 
-	cout << "Finished Parsing War and Peace" << endl;
+    // Compter l'occurrence du mot "war"
+
+	string tab [3];
+	tab[0] = "war";
+	tab[1] = "toto";
+	tab[2] = "peace";
+
+
+	for(string checkWord : tab){
+		 int* Count = map.get(checkWord);
+    if (Count != nullptr) {
+        cout << "Word: " << checkWord << "Count: " << *Count << endl;
+    } else {
+        cout << "Word: " << checkWord << "Count: " << 0 << endl;
+    }
+	}
+   
+
 
 	auto end = steady_clock::now();
     cout << "Parsing took "
@@ -111,3 +127,49 @@ int main () {
 }
 
 
+
+
+// #include <iostream>
+// #include <fstream>
+// #include <regex>
+// #include <chrono>
+// #include "HashMap.hpp"
+
+// int main () {
+//     using namespace std;
+//     using namespace std::chrono;
+
+//     cout << "Parsing War and Peace" << endl;
+
+//     ifstream input = ifstream("./WarAndPeace.txt");
+
+//     size_t nombre_lu = 0;
+//     string word;
+//     regex re(R"([^a-zA-Z])");
+
+//     size_t size = 1000;
+//     HashMap<string, int> map(size);
+
+//     while (input >> word) {
+//         word = regex_replace(word, re, "");
+//         transform(word.begin(), word.end(), word.begin(), ::tolower);
+
+//         bool connu = false;
+
+//         if (map.get(word) != nullptr) {
+//             int setValue = *(map.get(word)) + 1;
+//             map.set(word, setValue);
+//         } else {
+//             map.put(word, 1);
+//         }
+//     }
+//     input.close();
+
+
+
+//     cout << "Finished Parsing War and Peace" << endl;
+
+//     cout << "Found a total of " << map.size() << " words." << endl;
+
+//     return 0;
+// }
