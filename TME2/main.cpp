@@ -87,10 +87,12 @@ int main () {
 
 		// incomplet
 		for(;it!=map.end();it++){
+			
+
 		}
 
 
-
+ 
 
 
 		// if(!connu){
@@ -131,6 +133,7 @@ int main () {
     	}
 
 	}
+
 
 
 
