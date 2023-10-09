@@ -44,6 +44,8 @@ class HashMap {
             }
 
             // méthode
+
+            /*********************  TME3 Q4 ************************************/
             Entry& operator*(){
                 return *it;
             }
@@ -65,6 +67,10 @@ class HashMap {
                 else return false;
             }
 
+
+
+            /********************   TME3  Q1  **********************************/
+
             iterator begin(){
                 size_t index = 0;
                 for(;index < buckets.size();++index){
@@ -80,6 +86,10 @@ class HashMap {
                 for(; index != nullptr; index++ ){}
                 return index;
             }
+
+
+
+            /********************   TME3  Q2  **********************************/
 
             size_t count (iterator begin, iterator end){
                 size_t count = 0;
@@ -98,6 +108,10 @@ class HashMap {
                 }
                 return begin;
             }
+
+
+
+            /******************** TME3 Q6.5  ***********************/
 
             iterator find (const K & key){
                 size_t hashcode = std::hash(key);
