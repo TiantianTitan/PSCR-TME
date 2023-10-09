@@ -3,14 +3,26 @@
 #include <forward_list>
 #include <functional>
 
+
+
+
+struct Entry{
+	const std::string key;
+	size_t value;
+	Entry(const std::string& k, const size_t& v) : key(k), value(v) {};
+};
+
+
+
+typedef std::vector<std::forward_list<Entry>> buckets_t;
+typedef buckets_t::iterator buckets_it;
+
+
+
 template <typename K, typename V>
 class HashMap {
 public:
-    struct Entry {
-        const K key;
-        V value;
-        Entry(const K& k, const V& v) : key(k), value(v) {}
-    };
+
 
 private:
     std::vector<std::forward_list<Entry>> buckets;
@@ -66,4 +78,85 @@ public:
         }
         return count;
     }
+
+
+    buckets_it begin(){
+         size_t index = 0;
+            for (; index < buckets.size(); ++index) {
+                if (!buckets[index].empty()) {
+                    break;
+                }
+            }
+            return buckets.begin() + index;
+    
+    }
+
+    buckets_it end() {
+        size_t index = buckets.size();
+        return buckets.begin() + index;
+    }
 };
+
+
+
+
+template <typename T>
+class iterator{
+    
+    // attribut
+    private:
+        size_t index;
+        std::forward_list<Entry>::iterator it;
+        buckets_t &buckets;
+    public:
+        // constructeur
+        iterator(){
+            
+        }
+
+        iterator(buckets_t &buckets,size_t index,std::forward_list<Entry>::iterator it){
+            this->index = index;
+            this->it = it;
+            this->buckets = buckets;
+        }
+
+        // méthode
+        Entry& operator*(){
+            return *it;
+        }
+
+        T* operator->(){
+            return &it;
+        }
+
+        iterator & operator++(){
+            if(it != end()){
+                ++it;
+                return it;    
+            }
+            return end();
+        }
+
+        bool operator!=(const iterator & other){
+            if(it == other) return true;
+            else return false;
+        }
+
+        iterator begin(){
+            size_t index = 0;
+            for(;index < buckets.size();++index){
+                if(!buckets[index].empty()){
+                  break;  
+                }
+            }
+            return iterator(buckets,index,buckets[index].begin);
+        }
+
+        iterator end(){
+            iterator index = begin();
+            for(; index != nullptr; index++ ){}
+            return index;
+        }
+
+};
+

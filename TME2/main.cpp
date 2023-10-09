@@ -15,12 +15,12 @@
 
 // Q4: O(n^2)
 
-template<typename K, typename V>
-struct Entry{
-	const K key;
-	V value;
-	Entry(const K& k, const V& v) : key(k), value(v) {};
-};
+
+
+
+
+
+
 
 int main () {
 	using namespace std;
@@ -44,7 +44,15 @@ int main () {
 	//map
 	size_t size = 1000;
 	
-	HashMap<string,int> map (size);
+	HashMap<string,size_t> map (size);
+
+    // iterator
+    buckets_it it = map.begin();
+
+
+   
+
+
 
 	while (input >> word) {
 		// élimine la ponctuation et les caractères spéciaux
@@ -52,7 +60,11 @@ int main () {
 		// passe en lowercase
 		transform(word.begin(),word.end(),word.begin(),::tolower);
 
-		bool connu = false;
+
+
+
+
+		// bool connu = false;
 
 
 		// for( pair<string,int> & motCount: vec){
@@ -66,11 +78,19 @@ int main () {
 
 				
         if (map.get(word) != nullptr) {
-            int setValue = *(map.get(word)) + 1;
+            size_t setValue = *(map.get(word)) + 1;
             map.set(word, setValue);
         } else {
             map.put(word, 1);
         }
+
+
+		// incomplet
+		for(;it!=map.end();it++){
+		}
+
+
+
 
 
 		// if(!connu){
@@ -102,15 +122,27 @@ int main () {
 	tab[1] = "toto";
 	tab[2] = "peace";
 
+	for(string checkWord: tab){
+		size_t* Count = map.get(checkWord);
+		if (Count != nullptr) {
+        	cout << "Word: " << checkWord << "Count: " << *Count << endl;
+    	} else {
+        	cout << "Word: " << checkWord << "Count: " << 0 << endl;
+    	}
 
-	for(string checkWord : tab){
-		 int* Count = map.get(checkWord);
-    if (Count != nullptr) {
-        cout << "Word: " << checkWord << "Count: " << *Count << endl;
-    } else {
-        cout << "Word: " << checkWord << "Count: " << 0 << endl;
-    }
 	}
+
+
+
+
+	// for(string checkWord : tab){
+	// 	//  int* Count = map.get(checkWord);
+    // if (Count != nullptr) {
+    //     cout << "Word: " << checkWord << "Count: " << *Count << endl;
+    // } else {
+    //     cout << "Word: " << checkWord << "Count: " << 0 << endl;
+    // }
+	// }
    
 
 
@@ -129,47 +161,3 @@ int main () {
 
 
 
-// #include <iostream>
-// #include <fstream>
-// #include <regex>
-// #include <chrono>
-// #include "HashMap.hpp"
-
-// int main () {
-//     using namespace std;
-//     using namespace std::chrono;
-
-//     cout << "Parsing War and Peace" << endl;
-
-//     ifstream input = ifstream("./WarAndPeace.txt");
-
-//     size_t nombre_lu = 0;
-//     string word;
-//     regex re(R"([^a-zA-Z])");
-
-//     size_t size = 1000;
-//     HashMap<string, int> map(size);
-
-//     while (input >> word) {
-//         word = regex_replace(word, re, "");
-//         transform(word.begin(), word.end(), word.begin(), ::tolower);
-
-//         bool connu = false;
-
-//         if (map.get(word) != nullptr) {
-//             int setValue = *(map.get(word)) + 1;
-//             map.set(word, setValue);
-//         } else {
-//             map.put(word, 1);
-//         }
-//     }
-//     input.close();
-
-
-
-//     cout << "Finished Parsing War and Peace" << endl;
-
-//     cout << "Found a total of " << map.size() << " words." << endl;
-
-//     return 0;
-// }
