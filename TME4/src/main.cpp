@@ -20,8 +20,12 @@ void travail( Banque * bank){
 	unsigned int m = 1 + rand()% 99;
 	// 2- Essayer de transférer le montant m de i à j.
 	bank->transfert(i,j,m);
-	printf("On a transféré de Compte%d à Compte%d le montant%d",(int)i,(int)j,(int)m);
-
+	printf("On a transféré de Compte%d à Compte%d le montant%d\n",(int)i,(int)j,(int)m);
+	
+	int iSolde = (int) bank->getComptes()[i].getSolde();
+	int jSolde = (int) bank->getComptes()[j].getSolde();
+	
+	printf("Compte%d: Solde=%d, Compte%d:  Solde=%d\n", (int)i, iSolde, (int)j, jSolde);
 	// 3- Dormir une durée aléatoire de 0 à 20 ms.
 	unsigned int pause = rand()%20 ;
 	usleep(pause * 1000);
@@ -29,7 +33,7 @@ void travail( Banque * bank){
 
 int main () {
 
-	size_t nb_compte = 30;
+	size_t nb_compte = 100;
 	size_t solde = 1000;
 	Banque bank(nb_compte,solde);
 	Compte cpt;
@@ -45,6 +49,7 @@ int main () {
 		threads.push_back(thread(travail,&bank));
 		threads.emplace_back(travail,&bank);
 	}
+	
 
 
 

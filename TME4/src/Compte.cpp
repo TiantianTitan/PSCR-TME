@@ -9,7 +9,7 @@ void Compte::crediter (unsigned int val) {
 }
 bool Compte::debiter (unsigned int val) {
 	unique_lock<mutex> g(m);
-	bool doit = solde >= val;
+	bool doit = solde >= (int) val;
 	if (doit) {
 		solde-=val ;
 	}

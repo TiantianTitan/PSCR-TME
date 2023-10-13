@@ -31,4 +31,9 @@ bool Banque::comptabiliser (int attendu) const {
 	}
 	return bilan == attendu;
 }
+ std::vector<Compte> Banque::getComptes(){
+	return comptes;
+ }
+
+
 }
