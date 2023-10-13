@@ -15,6 +15,16 @@
 
 // Q4: O(n^2)
 
+class Personne{
+	public:
+    std::string nom;
+    std::string prenom;
+    int age;
+	std::string sexe;
+};
+
+
+
 
 int main () {
 	using namespace std;
@@ -143,7 +153,32 @@ int main () {
 	/********************** TME3 Q9 *************************/
 
 
+   	std::vector<Personne> personnes;
 
+    // Initialisation
+    personnes.push_back(Personne{"Nom1", "Prenom1", 25, "Masculin"});
+    personnes.push_back(Personne{"Nom2", "Prenom2", 30, "Féminin"});
+    personnes.push_back(Personne{"Nom3", "Prenom3", 25, "Masculin"});
+    personnes.push_back(Personne{"Nom4", "Prenom4", 30, "Masculin"});
+	personnes.push_back(Personne{"Nom5", "Prenom5", 45, "Féminin"});
+    // Créer un unordered_map pour regrouper les personnes par âge.
+    std::unordered_map<int, std::vector<Personne>> personnesParAge ;
+
+
+    for (const Personne& personne : personnes) {
+        personnesParAge[personne.age].push_back(personne);
+    }
+
+	// test
+    int ageRecherche = 30; 
+    if (personnesParAge.find(ageRecherche) != personnesParAge.end()) {
+        std::cout << "Personnes ayant " << ageRecherche << " ans :" << std::endl;
+        for (const Personne& personne : personnesParAge[ageRecherche]) {
+            std::cout << personne.prenom << " " << personne.nom << std::endl;
+        }
+    } else {
+        std::cout << "Aucune personne trouvée avec " << ageRecherche << " ans." << std::endl;
+    }
 
     return 0;
 }
