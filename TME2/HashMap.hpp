@@ -60,11 +60,26 @@ class HashMap {
                     return it;    
                 }
                 return end();
+
+                // ++it;
+                // if(it == buckets[index].end()){
+                //     ++index;
+                //     for(;index < buckets.size() && buckets[index].empty(); ++index){
+                //         /*NOP*/
+                //     }
+                //     if(index < buckets.size()) it = buckets[index].begin();
+                // }
+
+                // return this;
+
+
             }
 
             bool operator!=(const iterator & other){
                 if(it == other) return true;
                 else return false;
+                // return index != other.index || it != other.it || &buckets != &other.buckets;
+
             }
 
 
@@ -75,16 +90,19 @@ class HashMap {
                 size_t index = 0;
                 for(;index < buckets.size();++index){
                     if(!buckets[index].empty()){
-                    break;  
+                        return iterator(buckets,index,buckets[index].begin);
                     }
                 }
-                return iterator(buckets,index,buckets[index].begin);
+                return end();
             }
 
             iterator end(){
                 iterator index = begin();
                 for(; index != nullptr; index++ ){}
                 return index;
+
+                // return iterator(buckets.size(),buckets[0].end(),buckets);
+
             }
 
 
