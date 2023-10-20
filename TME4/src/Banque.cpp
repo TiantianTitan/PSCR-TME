@@ -9,9 +9,15 @@ namespace pr {
 void Banque::transfert(size_t deb, size_t cred, unsigned int val) {
 	Compte & debiteur = comptes[deb];
 	Compte & crediteur = comptes[cred];
+
+	unique_lock<recursive_mutex> transfertLock(transfertMutex);				
+		unique_lock<recursive_mutex> debiteurLock(debiteur.getMutex());			
+		std::unique_lock<std::mutex> verifieGuard(checkLock);					
+		unique_lock<recursive_mutex> crediturLock(crediteur.getMutex());
 	if (debiteur.debiter(val)) {
 		crediteur.crediter(val);
 	}
+	
 }
 size_t Banque::size() const {
 	return comptes.size();
@@ -34,6 +40,16 @@ bool Banque::comptabiliser (int attendu) const {
  std::vector<Compte> Banque::getComptes(){
 	return comptes;
  }
+
+
+/************* TME4 Q10 ******************/
+void Banque::effectuerBilan() {
+	std::lock_guard<std::mutex> lock(checkLock);
+	for (auto &compte: comptes) {
+		comptesCheck.insert(&compte);
+    }
+
+}
 
 
 }
