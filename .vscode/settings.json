@@ -57,6 +57,8 @@
         "thread": "cpp",
         "typeinfo": "cpp",
         "bitset": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "csignal": "cpp",
+        "set": "cpp"
     }
 }

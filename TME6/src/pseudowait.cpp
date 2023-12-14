@@ -8,14 +8,14 @@
 
 
 // Question 7
-int wait_till_pid(pid_t pid, int sec){
-    while (true) {
-        pid_t p = wait(nullptr);
-        if (p==-1 || p == pid) {
-            return p;
-        }
-    }
-}
+// int wait_till_pid(pid_t pid, int sec){
+//     while (true) {
+//         pid_t p = wait(nullptr);
+//         if (p==-1 || p == pid) {
+//             return p;
+//         }
+//     }
+// }
 
 
 

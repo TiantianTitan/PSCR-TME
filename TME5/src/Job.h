@@ -22,52 +22,32 @@ namespace pr {
         virtual ~Job() {};
     };
 
-// Concrete Job: example
-//    class SleepJob : public Job {
-//        int calcul (int v) {
-//            std::cout << "Computing for arg =" << v << std::endl;
-//            // Processing a heavy computation
-//            std::this_thread::sleep_for(1s);
-//            int ret = v % 255;
-//            std::cout << "Obtained for arg =" << arg <<  " result " << ret << std::endl;
-//            return ret;
-//        }
-//        int arg;
-//        int * ret;
-//    public :
-//        SleepJob(int arg, int * ret) : arg(arg), ret(ret) {}
-//        void run () {
-//            *ret = calcul(arg);
-//        }
-//        ~SleepJob(){}
-//    };
 
 
+    class PixelJob : public Job {
+    private:
+        int x, y;
+        Color* pixel;
+        Scene* scene;
+        std::vector<Vec3D>* lights;
 
-        class PixelJob : public Job {
-        private:
-            int x, y;
-            Color* pixel;
-            Scene* scene;
-            std::vector<Vec3D>* lights;
+    public:
 
-        public:
+        PixelJob(int x, int y, Color* pixel, Scene* scene, std::vector<Vec3D>* lights)
+                : x(x), y(y), pixel(pixel), scene(scene), lights(lights) {}
 
-            PixelJob(int x, int y, Color* pixel, Scene* scene, std::vector<Vec3D>* lights)
-                    : x(x), y(y), pixel(pixel), scene(scene), lights(lights) {}
+        void run() override {
 
-            void run() override {
+            auto &screenPoint = scene->getScreenPoints()[y][x];
+            Rayon ray(scene->getCameraPos(), screenPoint);
+            int targetSphere = findClosestInter(*scene, ray);
 
-                auto &screenPoint = scene->getScreenPoints()[y][x];
-                Rayon ray(scene->getCameraPos(), screenPoint);
-                int targetSphere = findClosestInter(*scene, ray);
-
-                if (targetSphere != -1) {
-                    const Sphere &obj = *((*scene).begin() + targetSphere);
-                    *pixel = computeColor(obj, ray, scene->getCameraPos(), *lights);
-                }
+            if (targetSphere != -1) {
+                const Sphere &obj = *((*scene).begin() + targetSphere);
+                *pixel = computeColor(obj, ray, scene->getCameraPos(), *lights);
             }
-        };
+        }
+    };
 
     class RowJob : public Job {
     private:

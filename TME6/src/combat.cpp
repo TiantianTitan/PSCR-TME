@@ -7,15 +7,18 @@
 #include <csignal>
 #include "rsleep.h"
 
-static int vie = 10;
+static int vie = 5;
+
+static bool finish = false;
 
 void handler (int sig){
     if(sig == SIGUSR1){
         vie--;
-        printf("on a été attaqué, j'ai la vie: %d pour l'instant\n",vie);
+        printf("%d a été attaqué, il a %d HP pour l'instant\n",getpid(),vie);
         if(vie == 0){
-            printf("on a plus de vie, on a perdu\n");
-            exit(1);
+            printf("%d a plus de HP, il est perdu\n",getpid());
+            finish =true;
+            exit(0);
         }
     }
 }
@@ -33,6 +36,7 @@ void defense(){
 
 void combat(pid_t adversaire){
     while(1){
+        if(finish) exit(0);
         defense();
         attaque(adversaire);
     }

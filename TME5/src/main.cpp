@@ -20,7 +20,7 @@ using namespace pr;
 
 void fillScene(Scene & scene, default_random_engine & re) {
 	// Nombre de spheres (rend le probleme plus dur)
-	const int NBSPHERES = 150;
+	const int NBSPHERES = 250;
 
 	// on remplit la scene de spheres colorees de taille position et couleur aleatoire
 	uniform_int_distribution<int> distrib(0, 200);
@@ -151,7 +151,7 @@ int main() {
 
 
     pr::Pool pool(100);
-    pool.start(20);
+    pool.start(16); // Processeurs pour PC portable AMD Ryzen™ 9 6900HX :: Nombre de threads 16
 
 
 //    Ex9

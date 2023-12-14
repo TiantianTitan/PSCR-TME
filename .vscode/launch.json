@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/TME1/exo1/src/exo1",
+            "program": "${workspaceFolder}/test",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
